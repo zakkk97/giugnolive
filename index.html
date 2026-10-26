@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Giugnolive</title>
+<meta name="description" content="Storia di Giugnolive, gruppo musicale dell'Alto Casertano attivo nel 2023: un anno, due concerti, un secondo posto.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+SC:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0c08;
+    --paper:#12140e;
+    --ink:#e9e4d4;
+    --muted:#a39d88;
+    --rule:#2c2f22;
+    --olive:#9fb247;
+    --olive-dark:#5f6e22;
+    --pimento:#c8412b;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"EB Garamond",Georgia,serif;
+    font-size:19px;
+    line-height:1.62;
+    overflow-x:hidden;
+  }
+  #cielo{
+    position:fixed;inset:0;width:100%;height:100%;
+    pointer-events:none;z-index:0;
+  }
+  #cielo.apertura{z-index:4}
+  .velo{
+    position:fixed;inset:0;z-index:1;pointer-events:none;
+    background:radial-gradient(ellipse at 50% 35%, rgba(11,12,8,.05) 0%, rgba(11,12,8,.55) 75%);
+  }
+  main{
+    position:relative;z-index:2;
+    max-width:980px;margin:0 auto;padding:56px 16px 80px;
+  }
+  .scheda{
+    background:rgba(18,20,14,.84);
+    border:1px solid var(--rule);
+    padding:44px 48px 52px;
+    box-shadow:0 30px 80px rgba(0,0,0,.6);
+  }
+  .sopratitolo{
+    font-family:"Cormorant SC",serif;letter-spacing:.18em;
+    color:var(--muted);font-size:14px;margin:0 0 6px;
+  }
+  h1{
+    font-weight:500;font-size:clamp(44px,8vw,72px);line-height:1;
+    margin:0;letter-spacing:-.01em;
+  }
+  h1 .o{color:var(--olive)}
+  .sottotitolo{
+    margin:10px 0 0;color:var(--muted);font-style:italic;font-size:18px;
+  }
+  hr.linea{border:0;border-top:1px solid var(--rule);margin:22px 0 28px}
+  .corpo{display:grid;grid-template-columns:1fr 280px;gap:40px;align-items:start}
+  .testo{min-width:0}
+  .testo p{margin:0 0 1em;hyphens:auto}
+  .testo p.attacco::first-letter{
+    float:left;font-size:4.1em;line-height:.82;padding:.06em .08em 0 0;
+    color:var(--olive);font-weight:500;
+  }
+  h2{
+    font-family:"Cormorant SC",serif;font-weight:600;
+    font-size:24px;letter-spacing:.06em;
+    margin:2em 0 .6em;padding-bottom:.25em;border-bottom:1px solid var(--rule);
+    color:var(--ink);
+  }
+  b,strong{font-weight:600;color:#fff}
+  .infobox{
+    position:sticky;top:24px;
+    border:1px solid var(--rule);background:rgba(11,12,8,.85);
+    font-size:15.5px;line-height:1.45;
+  }
+  .infobox .nome{
+    font-family:"Cormorant SC",serif;font-size:22px;text-align:center;
+    padding:12px 10px;background:var(--olive-dark);color:#f3f0e2;letter-spacing:.06em;
+  }
+  .infobox figure{margin:0;padding:22px 20px 10px;text-align:center}
+  .infobox svg{width:150px;height:auto;filter:drop-shadow(0 10px 18px rgba(0,0,0,.6))}
+  .infobox figcaption{color:var(--muted);font-style:italic;font-size:14px;margin-top:8px}
+  .infobox dl{margin:0;padding:6px 16px 16px;display:grid;grid-template-columns:auto 1fr;gap:7px 12px}
+  .infobox dt{font-weight:600;color:var(--muted)}
+  .infobox dd{margin:0}
+  .infobox .sez{
+    grid-column:1/-1;text-align:center;font-family:"Cormorant SC",serif;
+    letter-spacing:.08em;border-top:1px solid var(--rule);padding-top:8px;margin-top:4px;color:var(--olive)
+  }
+  table{width:100%;border-collapse:collapse;font-size:17px;margin:.4em 0 1em}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+  th{font-family:"Cormorant SC",serif;letter-spacing:.06em;color:var(--muted);font-weight:600}
+  td.esito-no{color:var(--muted);font-style:italic}
+  .tabella{overflow-x:auto}
+  ul.formazione{list-style:none;padding:0;margin:0}
+  ul.formazione li{
+    display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+    padding:9px 0;border-bottom:1px dotted var(--rule)
+  }
+  ul.formazione .ruolo{color:var(--muted);font-style:italic}
+  .nota{
+    margin-top:2.4em;font-size:15px;color:var(--muted);font-style:italic;
+    border-top:1px solid var(--rule);padding-top:14px
+  }
+  .comandi{
+    position:fixed;right:16px;bottom:16px;z-index:3;
+  }
+  .comandi button{
+    font:inherit;font-size:15px;cursor:pointer;
+    background:rgba(18,20,14,.9);color:var(--ink);
+    border:1px solid var(--olive-dark);padding:9px 16px;border-radius:999px;
+  }
+  .comandi button:hover{border-color:var(--olive);color:#fff}
+  .comandi button:focus-visible{outline:2px solid var(--olive);outline-offset:2px}
+  @media (max-width:820px){
+    body{font-size:18px}
+    main{padding:24px 16px 80px}
+    .scheda{padding:28px 20px 36px}
+    .corpo{grid-template-columns:1fr;gap:28px}
+    .infobox{position:static;order:-1}
+  }
+</style>
+</head>
+<body>
+<canvas id="cielo" aria-hidden="true"></canvas>
+<div class="velo"></div>
+
+<main>
+  <article class="scheda">
+    <p class="sopratitolo">Voce · Storia della musica minore</p>
+    <h1>Giugn<span class="o">o</span>live</h1>
+    <p class="sottotitolo">Un anno, due concerti, un secondo posto.</p>
+    <hr class="linea">
+
+    <div class="corpo">
+      <div class="testo">
+        <p class="attacco"><b>Giugnolive</b> è stato un gruppo musicale italiano dell'Alto Casertano, attivo dall'inizio alla fine del 2023. Secondo alcuni studiosi è il caso più compiuto di parabola artistica nella storia della musica: nascita, ascesa, apogeo e caduta, il tutto in meno di dodici mesi e in appena due concerti. Ha lasciato ai posteri un secondo posto, cinque musicisti e un numero imprecisato di serate che non si sono mai svolte.</p>
+
+        <h2>Le origini</h2>
+        <p>Il gruppo nasce nel 2023 per volontà di Pasquale Formigola, che ne è il fondatore ufficiale e, per sua stessa ammissione, l'unico a crederci fin dal primo giorno. Attorno a lui si riuniscono quattro musicisti, legati in parte da antiche amicizie e in parte dal caso. È un caso che la storiografia successiva non ha mai voluto giudicare con troppa severità.</p>
+        <p>La geografia del gruppo rispecchia equilibri delicati. Tre membri provengono da Pignataro Maggiore, uno da Camigliano e il fondatore da Bellona. Si tratta di una distanza di pochi chilometri, che nel corso dell'anno si rivelerà più ampia di quanto le mappe lasciassero supporre.</p>
+
+        <h2>Il debutto a Caserta</h2>
+        <p>La prima esibizione avviene a Caserta. Le cronache non ne riportano la data, ma la memoria dei presenti conferma che il concerto si è effettivamente svolto. Per un gruppo come Giugnolive, non è un dettaglio da poco.</p>
+
+        <h2>La stagione delle serate mancate</h2>
+        <p>Al debutto segue il periodo più intenso e più doloroso della storia del gruppo. Le date vengono pianificate, discusse, confermate e infine annullate, con una regolarità quasi liturgica. Alcune serate sono saltate per ragioni che la storiografia non è mai riuscita a chiarire. Altre non hanno mai superato lo stadio di proposta. Gli studiosi concordano su un punto: in quei mesi Giugnolive ha suonato molto più nelle conversazioni che sui palchi.</p>
+
+        <h2>Tavakalika: l'apogeo</h2>
+        <p>Il riscatto arriva a Bellona, terra natale del fondatore, sul palco del <b>Tavakalika</b>, un evento organizzato dall'omonima associazione anche a scopo benefico. È il palco più grande che il gruppo abbia mai calcato e, come si scoprirà di lì a poco, anche l'ultimo.</p>
+        <p>Giugnolive si classifica <b>secondo</b>. Per molti è il momento in cui il gruppo sfiora la gloria. Per altri è il momento in cui la gloria, con educazione, si scansa.</p>
+
+        <h2>Lo scioglimento</h2>
+        <p>Poco dopo il Tavakalika, senza comunicati, conferenze stampa o litigi documentati, Giugnolive smette di suonare. Non c'è mai stato un annuncio ufficiale di scioglimento, ed è possibile che il gruppo non si sia mai sciolto del tutto. Più semplicemente, a un certo punto, non si è più riunito.</p>
+        <p>Il bilancio finale conta un anno di attività, due concerti e un secondo posto. Un rapporto tra concerti fatti e annunciati che nessun'altra formazione nota sembra aver mai raggiunto.</p>
+
+        <h2>Eredità</h2>
+        <p>L'eredità artistica di Giugnolive sopravvive soprattutto nel percorso solista del fondatore Pasquale Formigola. Formigola continua a pubblicare brani su Spotify con i nomi d'arte <b>Darrews</b> e <b>Dette</b>, a dimostrazione che la musica, a differenza dei gruppi, non si annulla.</p>
+
+        <h2>Formazione</h2>
+        <ul class="formazione">
+          <li><span>Pasquale Formigola</span><span class="ruolo">voce, chitarra, fondatore · Bellona</span></li>
+          <li><span>Giuseppe Adduce</span><span class="ruolo">chitarra · Pignataro Maggiore</span></li>
+          <li><span>Pietro Nacca</span><span class="ruolo">basso · Pignataro Maggiore</span></li>
+          <li><span>Piergiorgio Manno</span><span class="ruolo">batteria · Pignataro Maggiore</span></li>
+          <li><span>Enrico De Sisto</span><span class="ruolo">tastiere · Camigliano</span></li>
+        </ul>
+
+        <h2>Concerti</h2>
+        <div class="tabella">
+          <table>
+            <thead><tr><th>N.</th><th>Luogo</th><th>Esito</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>Caserta</td><td>Svolto</td></tr>
+              <tr><td>2</td><td>Tavakalika, Bellona</td><td>Svolto. 2º posto. Ultimo concerto</td></tr>
+              <tr><td>—</td><td>Varie</td><td class="esito-no">Annullati, rinviati o mai esistiti</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="nota">Pagina non ufficiale, scritta dai membri del gruppo in memoria di Giugnolive.</p>
+      </div>
+
+      <aside class="infobox" aria-label="Scheda riassuntiva">
+        <div class="nome">Giugnolive</div>
+        <figure>
+          <svg id="oliva" role="img" aria-label="Un'oliva verde ripiena di peperone, simbolo del gruppo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220" width="200" height="220">
+  <defs>
+    <radialGradient id="g" cx="38%" cy="34%" r="70%">
+      <stop offset="0" stop-color="#e3ec8c"/>
+      <stop offset=".28" stop-color="#b3c24e"/>
+      <stop offset=".7" stop-color="#7d8f2a"/>
+      <stop offset="1" stop-color="#3f4a12"/>
+    </radialGradient>
+    <radialGradient id="p" cx="45%" cy="40%" r="65%">
+      <stop offset="0" stop-color="#e2553a"/>
+      <stop offset=".7" stop-color="#b8321f"/>
+      <stop offset="1" stop-color="#6e180c"/>
+    </radialGradient>
+    <linearGradient id="r" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity=".85"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <g transform="rotate(-28 100 110)">
+    <ellipse cx="100" cy="112" rx="74" ry="92" fill="url(#g)"/>
+    <ellipse cx="100" cy="112" rx="74" ry="92" fill="none" stroke="#2d360b" stroke-opacity=".5" stroke-width="2"/>
+    <ellipse cx="100" cy="34" rx="34" ry="17" fill="#4b5716"/>
+    <ellipse cx="100" cy="36" rx="29" ry="13.5" fill="url(#p)"/>
+    <ellipse cx="91" cy="31" rx="10" ry="3.5" fill="#ff9a80" opacity=".55"/>
+    <ellipse cx="72" cy="95" rx="15" ry="30" fill="url(#r)" transform="rotate(12 72 95)"/>
+    <ellipse cx="120" cy="190" rx="26" ry="6" fill="#f4f7c8" opacity=".35"/>
+  </g>
+</svg>
+          <figcaption>L'oliva, simbolo non ufficiale del gruppo</figcaption>
+        </figure>
+        <dl>
+          <dt>Origine</dt><dd>Alto Casertano</dd>
+          <dt>Attività</dt><dd>2023</dd>
+          <dt>Fondatore</dt><dd>Pasquale Formigola</dd>
+          <dt>Concerti</dt><dd>2</dd>
+          <dt>Annullati</dt><dd>Numerosi</dd>
+          <dt>Miglior risultato</dt><dd>2º posto, Tavakalika</dd>
+          <span class="sez">Componenti</span>
+          <dd style="grid-column:1/-1">Pasquale Formigola<br>Giuseppe Adduce<br>Pietro Nacca<br>Piergiorgio Manno<br>Enrico De Sisto</dd>
+        </dl>
+      </aside>
+    </div>
+  </article>
+</main>
+
+<div class="comandi">
+  <button id="pausa" type="button" aria-pressed="false">Ferma le olive</button>
+</div>
+
+<script>
+(function(){
+  var canvas = document.getElementById('cielo');
+  var ctx = canvas.getContext('2d');
+  var img = new Image();
+  var svgSrc = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(new XMLSerializer().serializeToString(document.getElementById('oliva')));
+  img.src = svgSrc;
+  var ic = document.createElement('link'); ic.rel = 'icon'; ic.href = svgSrc; document.head.appendChild(ic);
+  var olive = [], W = 0, H = 0, dpr = 1, attivo = true, ultimo = 0;
+  var ridotto = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function misura(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  function nuova(inizio){
+    var s = 22 + Math.random() * 50;
+    return {
+      x: Math.random() * W,
+      y: inizio === 'pioggia' ? -s - Math.random() * H * 1.4 : inizio ? Math.random() * H : -s - Math.random() * 200,
+      s: s,
+      v: 40 + s * 2.2 + Math.random() * 40,
+      r: Math.random() * Math.PI * 2,
+      vr: (Math.random() - .5) * 2.4,
+      dx: (Math.random() - .5) * 30,
+      a: .55 + (s / 64) * .45
+    };
+  }
+  function popola(modo){
+    var n = Math.round(Math.min(60, Math.max(22, W * H / 26000)));
+    olive = [];
+    for (var i = 0; i < n; i++) olive.push(nuova(modo || true));
+  }
+  function disegna(t){
+    var dt = ultimo ? Math.min((t - ultimo) / 1000, .05) : 0;
+    ultimo = t;
+    ctx.clearRect(0, 0, W, H);
+    for (var i = 0; i < olive.length; i++){
+      var o = olive[i];
+      if (attivo){
+        o.y += o.v * dt;
+        o.x += o.dx * dt;
+        o.r += o.vr * dt;
+        if (o.y - o.s > H) olive[i] = o = nuova(false);
+      }
+      var w = o.s, h = o.s * (img.naturalHeight / img.naturalWidth || 1.08);
+      ctx.save();
+      ctx.globalAlpha = o.a;
+      ctx.translate(o.x, o.y);
+      ctx.rotate(o.r);
+      ctx.drawImage(img, -w / 2, -h / 2, w, h);
+      ctx.restore();
+    }
+    requestAnimationFrame(disegna);
+  }
+  var btn = document.getElementById('pausa');
+  btn.addEventListener('click', function(){
+    attivo = !attivo;
+    btn.textContent = attivo ? 'Ferma le olive' : 'Fai cadere le olive';
+    btn.setAttribute('aria-pressed', String(!attivo));
+  });
+  window.addEventListener('resize', function(){ misura(); popola(); });
+  img.onload = function(){
+    misura();
+    if (!ridotto){
+      popola('pioggia');
+      canvas.classList.add('apertura');
+      setTimeout(function(){ canvas.classList.remove('apertura'); }, 3800);
+    } else { popola(); }
+    if (ridotto){ attivo = false; btn.textContent = 'Fai cadere le olive'; btn.setAttribute('aria-pressed','true'); }
+    requestAnimationFrame(disegna);
+  };
+})();
+</script>
+</body>
+</html>
